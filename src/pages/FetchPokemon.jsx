@@ -35,6 +35,7 @@ const url = "https://pokeapi.co/api/v2/pokemon?limit=30&offset=0"
 export default function FetchPokemon(){
 
     const [poke,setPoke] = useState([])
+    const [keyword,setKeyword] = useState('')
 
     useEffect(()=>{
         (async()=>{
@@ -49,23 +50,49 @@ export default function FetchPokemon(){
             }
         })()
     },[])
-    console.log(poke)
+    // console.log(poke)
 
     return(
         <>
         <h1 className="mt-5 flex justify-center w-screen text-5xl">Fetch Pokemon</h1>
-        <main className="grid grid-cols-4 py-20 px-15 gap-4"
+        <div className=" mt-10 flex w-screen text-2xl px-90">
+            <label className="flex items-center border-b-2 border-black w-full">
+                Search
+                <input className="px-4 py-2 w-ful focus:outline-none w-full"
+                type="text" 
+                name="keyword"
+                placeholder="Input berdasarkan nama pokemon"
+                onChange={(e)=>{setKeyword(e.target.value)}}/>
+                <img src="/src/assets/search.svg" alt="search" className="w-7 h-7"/>
+            </label>
+
+        </div>
+        <main className="grid grid-cols-4 py-20 px-40 gap-4 font-sans"
         >
-            {poke.map((v,i)=>{
+            {keyword ? 
+            poke.filter((e)=>(e.name.toLowerCase().includes(keyword.toLocaleLowerCase()))).map((v,i)=>{
                 return (
-                    <article className="flex flex-col justify-center items-center gap-2 border-2 border-black rounded-xl"
+                    <article className="flex flex-col py-2 px-2 justify-center items-center gap-2 border-2 border-black rounded-xl"
                     key={i}>
                         <img src={v.gambar} alt={v.name} />
                         <div>
                             {v.name}
                         </div>
                         <div>
-                            {v.tipe}
+                            Tipe : {v.tipe}
+                        </div>
+                    </article>
+                )
+            }) : poke.map((v,i)=>{
+                return (
+                    <article className="flex flex-col py-2 px-2 justify-center items-center gap-2 border-2 border-black rounded-xl"
+                    key={i}>
+                        <img src={v.gambar} alt={v.name} />
+                        <div>
+                            {v.name}
+                        </div>
+                        <div>
+                            Tipe : {v.tipe}
                         </div>
                     </article>
                 )
