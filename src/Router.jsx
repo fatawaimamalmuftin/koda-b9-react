@@ -6,6 +6,7 @@ import FuncComp from "./pages/FuncComp"
 import FetchPokemon from "./pages/FetchPokemon"
 import Navbar from "./components/Navbar"
 import LiftingState from "./pages/LiftingState"
+import Footer from "./components/Footer"
 import {Routes,Route} from 'react-router'
 
 export default function Router(){
@@ -19,6 +20,7 @@ export default function Router(){
       <Route path={'/counter'} element={<Counter/>} />
       <Route path={'/LiftingState'} element={<LiftingState/>} />
     </Routes>
+    <Footer/>
     </>
   )
 }
