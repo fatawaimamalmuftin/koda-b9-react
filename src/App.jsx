@@ -3,16 +3,18 @@
 // import Counter from "./pages/Counter"
 // import FuncComp from "./pages/FuncComp"
 // import FetchPokemon from "./pages/FetchPokemon"
-import Navbar from "./components/Navbar"
+// import Navbar from "./components/Navbar"
+import LiftingState from "./pages/LiftingState"
 
 export default function App() {
   return (
     <>
-    <Navbar/>
+    {/* <Navbar/> */}
     {/* <ClassComp/>
     <FuncComp/>
     <Counter/>
     <FetchPokemon/> */}
+    <LiftingState/>
     </>
   )
 }
