@@ -52,52 +52,92 @@ export default function FetchPokemon(){
     },[])
     // console.log(poke)
 
-    return(
-        <>
-        <h1 className="mt-5 flex justify-center w-screen text-5xl">Fetch Pokemon</h1>
-        <div className=" mt-10 flex w-screen text-2xl px-90">
-            <label className="flex items-center border-b-2 border-black w-full">
-                Search
-                <input className="px-4 py-2 w-ful focus:outline-none w-full"
-                type="text" 
-                name="keyword"
-                placeholder="Input berdasarkan nama pokemon"
-                onChange={(e)=>{setKeyword(e.target.value)}}/>
-                <img src="/src/assets/search.svg" alt="search" className="w-7 h-7"/>
-            </label>
+    return (
+    <>
+        <main className="min-h-screen bg-gray-100 py-8">
 
-        </div>
-        <main className="grid grid-cols-4 py-20 px-40 gap-4 font-sans"
-        >
-            {keyword ? 
-            poke.filter((e)=>(e.name.toLowerCase().includes(keyword.toLocaleLowerCase()))).map((v,i)=>{
-                return (
-                    <article className="flex flex-col py-2 px-2 justify-center items-center gap-2 border-2 border-black rounded-xl"
-                    key={i}>
-                        <img src={v.gambar} alt={v.name} />
-                        <div>
-                            {v.name}
-                        </div>
-                        <div>
-                            Tipe : {v.tipe}
-                        </div>
-                    </article>
-                )
-            }) : poke.map((v,i)=>{
-                return (
-                    <article className="flex flex-col py-2 px-2 justify-center items-center gap-2 border-2 border-black rounded-xl"
-                    key={i}>
-                        <img src={v.gambar} alt={v.name} />
-                        <div>
-                            {v.name}
-                        </div>
-                        <div>
-                            Tipe : {v.tipe}
-                        </div>
-                    </article>
-                )
-            })}
+            <h1 className="text-center text-4xl font-bold text-gray-800">
+                Fetch Pokemon
+            </h1>
+
+            <div className="mt-8 px-6 md:px-20 lg:px-40">
+                <div className="flex items-center gap-2 rounded-md border border-gray-400 bg-white px-3 py-2">
+
+                    <input
+                        className="w-full text-base outline-none"
+                        type="text"
+                        name="keyword"
+                        placeholder="Input berdasarkan nama pokemon"
+                        onChange={(e) => {
+                            setKeyword(e.target.value)
+                        }}
+                    />
+
+                    <img
+                        src="/src/assets/search.svg"
+                        alt="search"
+                        className="h-6 w-6"
+                    />
+
+                </div>
+            </div>
+
+            <main className="grid grid-cols-1 gap-5 px-6 py-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:px-20">
+
+                {keyword
+                    ? poke
+                        .filter((e) =>
+                            e.name
+                                .toLowerCase()
+                                .includes(keyword.toLowerCase())
+                        )
+                        .map((v, i) => {
+                            return (
+                                <article
+                                    className="flex flex-col items-center gap-2 rounded-lg border border-gray-300 bg-white p-4 shadow-sm"
+                                    key={i}
+                                >
+                                    <img
+                                        src={v.gambar}
+                                        alt={v.name}
+                                        className="h-32 w-32"
+                                    />
+
+                                    <div className="text-lg font-semibold capitalize text-gray-800">
+                                        {v.name}
+                                    </div>
+
+                                    <div className="text-sm text-gray-600">
+                                        Tipe : {v.tipe}
+                                    </div>
+                                </article>
+                            )
+                        })
+                    : poke.map((v, i) => {
+                        return (
+                            <article
+                                className="flex flex-col items-center gap-2 rounded-lg border border-gray-300 bg-white p-4 shadow-sm"
+                                key={i}
+                            >
+                                <img
+                                    src={v.gambar}
+                                    alt={v.name}
+                                    className="h-32 w-32"
+                                />
+
+                                <div className="text-lg font-semibold capitalize text-gray-800">
+                                    {v.name}
+                                </div>
+
+                                <div className="text-sm text-gray-600">
+                                    Tipe : {v.tipe}
+                                </div>
+                            </article>
+                        )
+                    })}
+
+            </main>
         </main>
-        </>
-    )
+    </>
+)
 }
