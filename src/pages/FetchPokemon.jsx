@@ -49,16 +49,28 @@ export default function FetchPokemon(){
             }
         })()
     },[])
-    // console.log(poke)
+    console.log(poke)
 
     return(
         <>
-        <h1>Fetch Pokemon</h1>
-        {poke.map(
-            <article>
-                <img src={poke} alt="" />
-            </article>
-        )}
+        <h1 className="mt-5 flex justify-center w-screen text-5xl">Fetch Pokemon</h1>
+        <main className="grid grid-cols-4 py-20 px-15 gap-4"
+        >
+            {poke.map((v,i)=>{
+                return (
+                    <article className="flex flex-col justify-center items-center gap-2 border-2 border-black rounded-xl"
+                    key={i}>
+                        <img src={v.gambar} alt={v.name} />
+                        <div>
+                            {v.name}
+                        </div>
+                        <div>
+                            {v.tipe}
+                        </div>
+                    </article>
+                )
+            })}
+        </main>
         </>
     )
 }

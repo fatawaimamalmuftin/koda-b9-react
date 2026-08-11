@@ -1,4 +1,6 @@
 export default function Tabel({show}) {
+    console.log(show)
+
   return (
     <ul>
         {/* {product} */}

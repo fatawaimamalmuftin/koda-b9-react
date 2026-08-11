@@ -2,9 +2,9 @@
 // import ClassComp from "./pages/ClassComp"
 // import Counter from "./pages/Counter"
 // import FuncComp from "./pages/FuncComp"
-// import FetchPokemon from "./pages/FetchPokemon"
+import FetchPokemon from "./pages/FetchPokemon"
 // import Navbar from "./components/Navbar"
-import LiftingState from "./pages/LiftingState"
+// import LiftingState from "./pages/LiftingState"
 
 export default function App() {
   return (
@@ -13,8 +13,8 @@ export default function App() {
     {/* <ClassComp/>
     <FuncComp/>
     <Counter/>
-    <FetchPokemon/> */}
-    <LiftingState/>
+    <LiftingState/> */}
+    <FetchPokemon/>
     </>
   )
 }
