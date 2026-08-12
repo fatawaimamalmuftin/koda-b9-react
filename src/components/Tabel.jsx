@@ -1,7 +1,7 @@
 /**
  * 
- * @prop {setStateGeter['']} show 
- * @returns {ElementHTML}
+ * @prop {setStateGeter[]} show 
+ * @returns {HTMLElement}
  */
 export default function Tabel({show}) {
     console.log(show)
