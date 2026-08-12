@@ -2,6 +2,11 @@
 
 import { useEffect, useState } from "react";
 
+/**
+ * 
+ * @param {string} url 
+ * @returns {Promise[]}
+ */
 async function getData(url) {
     const res = await fetch(url)
 

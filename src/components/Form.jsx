@@ -1,5 +1,9 @@
 import { useState } from "react"
 
+/**
+ * @prop {setStateSeter['']} input 
+ * @returns {ElementHTML}
+ */
 export default function Form({input}) {
     const [colinput,setColinput] = useState('')
 
