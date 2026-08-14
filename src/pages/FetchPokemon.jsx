@@ -1,6 +1,7 @@
 // import axios from "axios"
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router";
 
 /**
  * 
@@ -24,7 +25,9 @@ async function getData(url) {
 
         const dataPokemon = await url.json()
 
+
         const charPokemono = new Object()
+        charPokemono.id_pokemon = dataPokemon.id
         charPokemono.name = dataPokemon.name
         charPokemono.tipe = dataPokemon.types[0].type.name
         charPokemono.gambar = dataPokemon.sprites.front_default
@@ -35,12 +38,16 @@ async function getData(url) {
     return await Promise.all(dataPokemon)
 }
 
-const url = "https://pokeapi.co/api/v2/pokemon?limit=30&offset=0"
+// const url = 
+// untuk link detail : https://pokeapi.co/api/v2/pokemon-form/1 < sesuai id paling terahir
 
 export default function FetchPokemon(){
 
+    const [url] = useState("https://pokeapi.co/api/v2/pokemon?limit=100&offset=0")
     const [poke,setPoke] = useState([])
-    const [keyword,setKeyword] = useState('')
+    // const [keyword,setKeyword] = useState('')
+    const [sp,setSp] = useSearchParams('')
+    const keyword = sp.get("search")
 
     useEffect(()=>{
         (async()=>{
@@ -54,8 +61,10 @@ export default function FetchPokemon(){
                 console.log("Effect complite")
             }
         })()
-    },[])
+    },[url])
     // console.log(poke)
+    // console.log(keyword)
+    console.log(sp.get("search"))
 
     return (
     <>
@@ -73,9 +82,8 @@ export default function FetchPokemon(){
                         type="text"
                         name="keyword"
                         placeholder="Input berdasarkan nama pokemon"
-                        onChange={(e) => {
-                            setKeyword(e.target.value)
-                        }}
+                        defaultValue={keyword}
+                        onChange={(e) =>{setSp({"search" : e.target.value})}}
                     />
 
                     <img
@@ -85,6 +93,7 @@ export default function FetchPokemon(){
                     />
 
                 </div>
+                <h1 className="mt-10">Total Show Pokemon : {poke.length}</h1>
             </div>
 
             <main className="grid grid-cols-1 gap-5 px-6 py-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:px-20">
@@ -99,7 +108,7 @@ export default function FetchPokemon(){
                         .map((v, i) => {
                             return (
                                 <article
-                                    className="flex flex-col items-center gap-2 rounded-lg border border-gray-300 bg-white p-4 shadow-sm"
+                                    className="cursor-pointer flex flex-col items-center gap-2 rounded-lg border border-gray-300 bg-white p-4 shadow-sm"
                                     key={i}
                                 >
                                     <img
@@ -121,7 +130,7 @@ export default function FetchPokemon(){
                     : poke.map((v, i) => {
                         return (
                             <article
-                                className="flex flex-col items-center gap-2 rounded-lg border border-gray-300 bg-white p-4 shadow-sm"
+                                className="cursor-pointer flex flex-col items-center gap-2 rounded-lg border border-gray-300 bg-white p-4 shadow-sm"
                                 key={i}
                             >
                                 <img
@@ -137,10 +146,13 @@ export default function FetchPokemon(){
                                 <div className="text-sm text-gray-600">
                                     Tipe : {v.tipe}
                                 </div>
+                                
+                                {/* ini id nya: {v.id_pokemon} */}
                             </article>
                         )
                     })}
 
+                    <button></button>
             </main>
         </main>
     </>
