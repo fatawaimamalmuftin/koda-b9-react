@@ -8,13 +8,15 @@ import Navbar from "./components/Navbar"
 import LiftingState from "./pages/LiftingState"
 import Footer from "./components/Footer"
 import {Routes,Route} from 'react-router'
+import FormControlled from "./pages/FormControlled"
 
 export default function Router(){
   return(
     <>
     <Navbar/>
     <Routes>
-      <Route path={'/pokemon'} element={<FetchPokemon/>} />
+      <Route path={'/'} element={<FetchPokemon/>} />
+      <Route path={'/formControlled'} element={<FormControlled/>}/>
       <Route path={'/classcomp'} element={<ClassComp/>} />
       <Route path={'/funccomp'} element={<FuncComp/>} />
       <Route path={'/counter'} element={<Counter/>} />

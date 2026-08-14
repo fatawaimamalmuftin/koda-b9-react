@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
+import DetailPokemon from "../components/DetailPokemon";
 
 /**
  * 
@@ -45,10 +46,11 @@ export default function FetchPokemon(){
 
     const [url] = useState("https://pokeapi.co/api/v2/pokemon?limit=100&offset=0")
     const [poke,setPoke] = useState([])
-    // const [keyword,setKeyword] = useState('')
+    const [showModal,setShwoModal] = useState(false)
+    const [getId,setGetId] = useState(0)
     const [sp,setSp] = useSearchParams('')
     const keyword = sp.get("search")
-
+    
     useEffect(()=>{
         (async()=>{
             try{
@@ -62,12 +64,19 @@ export default function FetchPokemon(){
             }
         })()
     },[url])
-    // console.log(poke)
-    // console.log(keyword)
-    console.log(sp.get("search"))
+
+    // if(!showModal){
+    //     sp.delete("detail")
+    //     setSp(sp)
+    // }
+
+    // console.log(getId)
+    // console.log(sp.get("search"))
 
     return (
-    <>
+        <>
+        <DetailPokemon idPokemon={getId} show={showModal} setShow={setShwoModal}/>
+
         <main className="min-h-screen bg-gray-100 py-8">
 
             <h1 className="text-center text-4xl font-bold text-gray-800">
@@ -108,8 +117,13 @@ export default function FetchPokemon(){
                         .map((v, i) => {
                             return (
                                 <article
-                                    className="cursor-pointer flex flex-col items-center gap-2 rounded-lg border border-gray-300 bg-white p-4 shadow-sm"
                                     key={i}
+                                    onClick={(e)=>{
+                                        setGetId(v.id_pokemon),
+                                        setShwoModal(true),
+                                        setSp({"detail": e.target.value})
+                                    }}
+                                    className="cursor-pointer flex flex-col items-center gap-2 rounded-lg border border-gray-300 bg-white p-4 shadow-sm"
                                 >
                                     <img
                                         src={v.gambar}
@@ -124,13 +138,22 @@ export default function FetchPokemon(){
                                     <div className="text-sm text-gray-600">
                                         Tipe : {v.tipe}
                                     </div>
+
+                                    <button className="w-full bg-blue-600 text-white px-2 rounded-2xl mt-1 hover:bg-green-500"
+                                    value={v.name}
+                                    onClick={(e)=>{
+                                        setGetId(v.id_pokemon),
+                                        setShwoModal(true),
+                                        setSp({"detail": e.target.value})
+                                    }}
+                                    >Detail</button>
                                 </article>
                             )
                         })
                     : poke.map((v, i) => {
                         return (
                             <article
-                                className="cursor-pointer flex flex-col items-center gap-2 rounded-lg border border-gray-300 bg-white p-4 shadow-sm"
+                                className="flex flex-col items-center gap-2 rounded-lg border border-gray-300 bg-white p-4 shadow-sm"
                                 key={i}
                             >
                                 <img
@@ -147,7 +170,15 @@ export default function FetchPokemon(){
                                     Tipe : {v.tipe}
                                 </div>
                                 
-                                {/* ini id nya: {v.id_pokemon} */}
+                                <button className="w-full bg-blue-600 text-white px-2 rounded-2xl mt-1 hover:bg-green-500"
+                                value={v.name}
+                                onClick={(e)=>{
+                                    setGetId(v.id_pokemon),
+                                    setShwoModal(true),
+                                    setSp({"detail": e.target.value})
+                                    // console.log(e.target.value)
+                                }}
+                                >Detail</button>
                             </article>
                         )
                     })}

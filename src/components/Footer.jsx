@@ -10,6 +10,11 @@ export default function Footer() {
     })()
     }, [])
 
+    // useEffect((e)=>{
+    //     e.preventDefault()
+        
+    // })
+
     function handleInput(e) {
         e.preventDefault()
         
