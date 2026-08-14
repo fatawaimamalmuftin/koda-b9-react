@@ -39,8 +39,19 @@ async function getData(url) {
     return await Promise.all(dataPokemon)
 }
 
+async function getTypes(url) {
+    const res = await fetch(url)
+
+    if(!res.ok)throw new Error(res.status)
+
+    const data = await res.json()
+
+    return await data.results
+}
+
 // const url = 
 // untuk link detail : https://pokeapi.co/api/v2/pokemon-form/1 < sesuai id paling terahir
+const urlType = "https://pokeapi.co/api/v2/type"
 
 export default function FetchPokemon(){
 
@@ -49,13 +60,18 @@ export default function FetchPokemon(){
     const [showModal,setShwoModal] = useState(false)
     const [getId,setGetId] = useState(0)
     const [sp,setSp] = useSearchParams('')
-    const keyword = sp.get("search")
+    const [types,setTypes] = useState([])
+    const [keyword,setKeyword] = useState("")  
+    const [type,setType] = useState("")
+    // const keyword = sp.get("search")
     
     useEffect(()=>{
         (async()=>{
             try{
                 const data = await getData(url)
+                const alltype = await getTypes(urlType)
                 setPoke(data)
+                setTypes(alltype.map((e)=>e.name))
             }catch(err){
                 console.log("Effect error: " + err)
                 return
@@ -65,12 +81,7 @@ export default function FetchPokemon(){
         })()
     },[url])
 
-    // if(!showModal){
-    //     sp.delete("detail")
-    //     setSp(sp)
-    // }
-
-    // console.log(getId)
+    console.log(sp)
     // console.log(sp.get("search"))
 
     return (
@@ -92,7 +103,20 @@ export default function FetchPokemon(){
                         name="keyword"
                         placeholder="Input berdasarkan nama pokemon"
                         defaultValue={keyword}
-                        onChange={(e) =>{setSp({"search" : e.target.value})}}
+                        onChange={(e) =>{
+                            const v = e.target.value
+
+                            setKeyword(v)
+
+                            setSp((prev)=>{
+                                if(v){
+                                    prev.set("search", v)
+                                }else{
+                                    prev.delete("search")
+                                }
+                                return prev
+                            })
+                        }}
                     />
 
                     <img
@@ -102,26 +126,59 @@ export default function FetchPokemon(){
                     />
 
                 </div>
-                <h1 className="mt-10">Total Show Pokemon : {poke.length}</h1>
+                <div className="flex items-center gap-5 mt-10">
+                    <select className="w-fit h-fit px-4 py-1 border-2 rounded-2xl" 
+                    name="filterType" 
+                    id="filterType"
+                    onChange={(e)=>(setType(e.target.value),setSp((prev)=>{
+                        const v = e.target.value
+                        if(v){
+                            prev.set("type",e.target.value)
+                        }else{
+                            prev.delete("type")
+                        }
+                        return prev        
+                    }))}
+                    >
+                        <option value='' >-- Select Type --</option>
+                        {types.map((v,i)=>(<option key={i} value={v}>{v}</option>))}
+                    </select>
+
+                    <h1>Total Show Pokemon : {poke.length}</h1>
+                </div>
             </div>
 
             <main className="grid grid-cols-1 gap-5 px-6 py-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:px-20">
 
-                {keyword
+                {keyword || type
                     ? poke
                         .filter((e) =>
                             e.name
                                 .toLowerCase()
                                 .includes(keyword.toLowerCase())
+                                &&
+                            e.tipe
+                                .toLowerCase()
+                                .includes(type.toLowerCase())
                         )
                         .map((v, i) => {
                             return (
                                 <article
                                     key={i}
                                     onClick={(e)=>{
-                                        setGetId(v.id_pokemon),
-                                        setShwoModal(true),
-                                        setSp({"detail": e.target.value})
+                                        setGetId(v.id_pokemon)
+
+                                        const v = e.target.value
+
+                                        setSp((prev)=>{
+                                            if(v){
+                                                prev.set("detail", v)
+                                            }else{
+                                                prev.delete("detail")
+                                            }
+                                            return prev
+                                        })
+                                        setShwoModal(true)
                                     }}
                                     className="cursor-pointer flex flex-col items-center gap-2 rounded-lg border border-gray-300 bg-white p-4 shadow-sm"
                                 >
@@ -173,10 +230,19 @@ export default function FetchPokemon(){
                                 <button className="w-full bg-blue-600 text-white px-2 rounded-2xl mt-1 hover:bg-green-500"
                                 value={v.name}
                                 onClick={(e)=>{
-                                    setGetId(v.id_pokemon),
-                                    setShwoModal(true),
-                                    setSp({"detail": e.target.value})
-                                    // console.log(e.target.value)
+                                    setGetId(v.id_pokemon)
+
+                                    const v = e.target.value
+
+                                    setSp((prev)=>{
+                                        if(v){
+                                            prev.set("detail", v)
+                                        }else{
+                                            prev.delete("detail")
+                                        }
+                                        return prev
+                                    })
+                                    setShwoModal(true)
                                 }}
                                 >Detail</button>
                             </article>
