@@ -1,7 +1,7 @@
 export default function TodoList() {
   return (
     <main className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="w-[600px] bg-white px-12 py-10 shadow-lg">
+      <div className="w-150 bg-white px-12 py-10 shadow-lg">
         
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-5xl font-semibold">
