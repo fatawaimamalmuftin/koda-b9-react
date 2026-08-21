@@ -33,6 +33,10 @@ export default function Navbar() {
         </div>
         <ul className="flex gap-5 px-2 py-2">
             <li>
+              <Link to={'/FormSurvey'}>
+                Form Survey
+              </Link>              
+            </li><li>
               <Link to={'/edit'}>
                 Edit Profile
               </Link>              

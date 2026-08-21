@@ -11,6 +11,7 @@ import {Routes,Route} from 'react-router'
 import FormControlled from "./pages/FormControlled"
 import Login from "./pages/Login"
 import EditProfile from "./pages/EditProfile"
+import FormSurvei from "./pages/FormSurvei"
 
 export default function Router(){
   return(
@@ -18,6 +19,7 @@ export default function Router(){
     <Navbar/>
     <Routes>
       <Route path={'/'} element={<FetchPokemon/>} />
+      <Route path={'/FormSurvey'} element={<FormSurvei/>} />
       <Route path={'/edit'} element={<EditProfile/>} />
       <Route path={'/login'} element={<Login/>} />
       <Route path={'/formControlled'} element={<FormControlled/>}/>
