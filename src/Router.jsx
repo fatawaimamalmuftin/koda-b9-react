@@ -12,6 +12,7 @@ import FormControlled from "./pages/FormControlled"
 import Login from "./pages/Login"
 import EditProfile from "./pages/EditProfile"
 import FormSurvei from "./pages/FormSurvei"
+import TodoList from "./pages/TodoList"
 
 export default function Router(){
   return(
@@ -19,6 +20,7 @@ export default function Router(){
     <Navbar/>
     <Routes>
       <Route path={'/'} element={<FetchPokemon/>} />
+      <Route path={'/todo'} element={<TodoList/>} />
       <Route path={'/FormSurvey'} element={<FormSurvei/>} />
       <Route path={'/edit'} element={<EditProfile/>} />
       <Route path={'/login'} element={<Login/>} />

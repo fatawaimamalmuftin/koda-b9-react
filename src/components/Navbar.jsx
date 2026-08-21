@@ -36,7 +36,13 @@ export default function Navbar() {
               <Link to={'/FormSurvey'}>
                 Form Survey
               </Link>              
-            </li><li>
+            </li>
+            <li>
+              <Link to={'/todo'}>
+                TodoList
+              </Link>              
+            </li>
+            <li>
               <Link to={'/edit'}>
                 Edit Profile
               </Link>              
