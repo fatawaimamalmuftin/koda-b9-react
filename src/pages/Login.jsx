@@ -4,7 +4,7 @@ import usersContext from "../context/users/usersContext"
 export default function Login() {
     const userData = useContext(usersContext)
 
-    console.log(userData.user)
+    // console.log(userData.user)
 
   return (
     <main className="h-screen w-screen">
