@@ -6,6 +6,48 @@ const initialState = {
 
 }
 
+export const addTodoAsync = (todo) => {
+
+    return (dispatch) => {
+
+        setTimeout(()=>{
+
+            dispatch(addTodo(todo))
+
+        },1000)
+
+    }
+
+}
+
+export const toggleTodoAsync = (id) => {
+
+    return (dispatch) => {
+
+        setTimeout(()=>{
+
+            dispatch(toggleTodo(id))
+
+        },1000)
+
+    }
+
+}
+
+export const deleteTodoAsync = (id) => {
+
+    return (dispatch) => {
+
+        setTimeout(()=>{
+
+            dispatch(deleteTodo(id))
+
+        },1000)
+
+    }
+
+}
+
 const todoSlice = createSlice({
 
     name: "todolist",
@@ -78,50 +120,6 @@ export const {
 
 } = todoSlice.actions
 
-
-export const addTodoAsync = (todo) => {
-
-    return (dispatch) => {
-
-        setTimeout(()=>{
-
-            dispatch(addTodo(todo))
-
-        },1000)
-
-    }
-
-}
-
-
-export const toggleTodoAsync = (id) => {
-
-    return (dispatch) => {
-
-        setTimeout(()=>{
-
-            dispatch(toggleTodo(id))
-
-        },1000)
-
-    }
-
-}
-
-
-export const deleteTodoAsync = (id) => {
-
-    return (dispatch) => {
-
-        setTimeout(()=>{
-
-            dispatch(deleteTodo(id))
-
-        },1000)
-
-    }
-
-}
 
 
 export default todoSlice.reducer
